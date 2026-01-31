@@ -104,8 +104,11 @@
                 @endguest
 
                 @auth
-                   <li class="nav-item">
-                    <a class="nav-link" href="/">Logout</a>
+                <li class="nav-item">
+                <form method="POST" action="/logout" style="display: inline;">
+                    @csrf
+                   <button type="submit" class="btn btn-link nav-link">Logout</button>
+                    </form>
                 </li>
 
                 @endauth
