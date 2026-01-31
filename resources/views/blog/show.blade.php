@@ -1,22 +1,49 @@
 @include('layout.header')
 
-<div class="container mt-5">
-    <div class="card p-4">
-        <h3>Title: {{ $blog->title }}</h3>
-        <p class="mt-3">Description: {{ $blog->description }}</p>
+<div class="container mt-5" style="max-width: 720px;">
 
-        @if($blog->image)
-            <img src="{{ asset('images/' . $blog->image) }}" class="img-fluid mt-3">
-        @endif
+    <div class="mb-4 text-muted small">
+        By {{ auth()->user()->name }} |
+        {{ $blog->created_at->format('F j, Y') }}
     </div>
 
-    <a href="/blog/edit/{{ $blog->id }}" class="btn btn-primary mt-3">Edit Blog</a>
+    <h2 class="fw-semibold mb-4">
+        {{ $blog->title }}
+    </h2>
 
-    <form action="/blog/delete/{{ $blog->id }}" method="POST" class="d-inline">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger mt-3">Delete Blog</button>
-    </form>
+    <p class="text-muted lh-lg">
+        {{ $blog->description }}
+    </p>
+
+    @if($blog->image)
+        <div class="my-4">
+            <img
+                src="{{ asset('images/' . $blog->image) }}"
+                class="img-fluid rounded"
+            >
+        </div>
+    @endif
+
+    <div class="d-flex gap-3 mt-5">
+        <a
+            href="/blog/edit/{{ $blog->id }}"
+            class="btn btn-outline-secondary btn-sm"
+        >
+            Edit
+        </a>
+
+        <form
+            action="/blog/delete/{{ $blog->id }}"
+            method="POST"
+            onsubmit="return confirm('Delete this blog?')"
+        >
+            @csrf
+            @method('DELETE')
+
+            <button type="submit" class="btn btn-link text-danger btn-sm p-0">
+                Delete
+            </button>
+        </form>
+    </div>
 
 </div>
-

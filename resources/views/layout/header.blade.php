@@ -10,67 +10,95 @@
 
     <style>
         body {
-            background-color: #f5f5f5;
+            background-color: #fafafa;
             color: #222;
+            font-size: 15px;
         }
 
+        /* Navbar */
         .navbar {
-            background-color: #ffffff;
-            border-bottom: 1px solid #e5e5e5;
+            background-color: #fafafa;
+            border-bottom: 1px solid #eee;
         }
 
-        .navbar-brand,
-        .nav-link {
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 16px;
             color: #222 !important;
-            font-weight: 500;
+        }
+
+        .nav-link {
+            color: #555 !important;
+            padding: 6px 12px;
+            font-size: 14px;
         }
 
         .nav-link:hover {
-            color: #555 !important;
+            color: #000 !important;
         }
 
+        /* Forms */
+        .form-control {
+            border: none;
+            border-bottom: 1px solid #ddd;
+            border-radius: 0;
+            background: transparent;
+            font-size: 14px;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #000;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: #000;
+            border: none;
+            font-size: 14px;
+            padding: 6px 18px;
+        }
+
+        .btn-primary:hover {
+            background-color: #222;
+        }
+
+        .btn-outline-secondary {
+            border-color: #ddd;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #eee;
+            color: #000;
+        }
+
+        /* Tables */
         .table {
-            background-color: #ffffff;
+            background-color: #fff;
+            border-collapse: separate;
+            border-spacing: 0;
         }
 
-        .table thead {
-            border-bottom: 1px solid #e5e5e5;
+        .table th {
+            font-weight: 500;
+            color: #666;
+            border-bottom: 1px solid #eee;
         }
 
-        .table th,
         .table td {
-            padding: 14px;
-            vertical-align: middle;
+            border-bottom: 1px solid #f1f1f1;
         }
 
         .table tbody tr:hover {
             background-color: #fafafa;
         }
 
+        /* Cards */
         .card {
-            background-color: #ffffff;
-            border: 1px solid #e5e5e5;
-            border-radius: 6px;
-        }
-
-        .form-control {
+            border: 1px solid #eee;
             border-radius: 4px;
-            border: 1px solid #dcdcdc;
-        }
-
-        .form-control:focus {
-            box-shadow: none;
-            border-color: #999;
-        }
-
-        .btn-primary {
-            background-color: #222;
-            border: none;
-            padding: 6px 16px;
-        }
-
-        .btn-primary:hover {
-            background-color: #000;
         }
 
         img {
@@ -80,13 +108,12 @@
 </head>
 <body>
 
-
 <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">Blogger Application</a>
+    <div class="container">
+        <a class="navbar-brand" href="/">Blogger</a>
 
         <div class="collapse navbar-collapse">
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav me-auto align-items-center">
 
                 @auth
                 <li class="nav-item">
@@ -105,21 +132,25 @@
 
                 @auth
                 <li class="nav-item">
-                <form method="POST" action="/logout" style="display: inline;">
-                    @csrf
-                   <button type="submit" class="btn btn-link nav-link">Logout</button>
+                    <form method="POST" action="/logout">
+                        @csrf
+                        <button type="submit" class="btn btn-link nav-link p-0">
+                            Logout
+                        </button>
                     </form>
                 </li>
-
                 @endauth
-                
+
             </ul>
 
-            <form class="d-flex" method="GET"  action="{{ url('/') }}">
-                <input class="form-control me-2" type="search" placeholder="Search" name="search">
-                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            <form class="d-flex" method="GET" action="{{ url('/') }}">
+                <input
+                    class="form-control me-3"
+                    type="search"
+                    placeholder="Search..."
+                    name="search"
+                >
             </form>
-           
         </div>
     </div>
 </nav>

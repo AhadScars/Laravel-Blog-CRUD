@@ -2,58 +2,47 @@
 
 @if ($message = Session::get('success'))
     <div class="container mt-3">
-        <div class="alert alert-success">
+        <p class="text-success text-center">
             {{ $message }}
-        </div>
+        </p>
     </div>
 @endif
 
-<div class="container mt-3">
-    <h2 class="text-center">Login</h2>
-</div>
+<div class="container mt-5" style="max-width: 420px;">
+    <h4 class="text-center mb-4">Login</h4>
 
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-sm-6">
-            <div class="card p-4">
+    <form action="/auth/login" method="POST">
+        @csrf
 
-                <form action="/auth/login" method="POST">
-                    @csrf
-
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input 
-                            type="email" 
-                            name="email" 
-                            class="form-control" 
-                            value="{{ old('email') }}" 
-                            required
-                        >
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Password</label>
-                        <input 
-                            type="password" 
-                            name="password" 
-                            class="form-control" 
-                            required
-                        >
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <button type="submit" class="btn btn-primary">
-                            Login
-                        </button>
-
-                        <a href="/auth/register" class="btn btn-secondary">
-                            Register
-                        </a>
-                    </div>
-
-                </form>
-
-            </div>
+        <div class="mb-3">
+            <label class="form-label small text-muted">Email</label>
+            <input
+                type="email"
+                name="email"
+                class="form-control border-0 border-bottom rounded-0"
+                value="{{ old('email') }}"
+                required
+            >
         </div>
-    </div>
+
+        <div class="mb-4">
+            <label class="form-label small text-muted">Password</label>
+            <input
+                type="password"
+                name="password"
+                class="form-control border-0 border-bottom rounded-0"
+                required
+            >
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100 mb-3">
+            Login
+        </button>
+
+        <div class="text-center">
+            <a href="/auth/register" class="text-muted small text-decoration-none">
+                Don’t have an account? Register
+            </a>
+        </div>
+    </form>
 </div>

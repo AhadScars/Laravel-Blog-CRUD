@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\blog;
+
 use Illuminate\Http\Request;
 
 class blogController extends Controller
@@ -39,18 +40,20 @@ class blogController extends Controller
 
        $image = time().'.'.$request->image->extension();
          $request->image->move(public_path('images'), $image);
-         $blog = new blog;
-            $blog->title = $request->title;
-            $blog->description = $request->description;
-            $blog->image = $image;
-            $blog->save();
-            return redirect('blog/create')->with('success','Blog created successfully');
+        $blog = new Blog();
+        $blog->title = $request->title;
+        $blog->description = $request->description;
+        $blog->image = $image;
+        
+        $blog->save();
+
+        return redirect('blog/create')->with('success','Blog created successfully');
     }
 
    
     public function show(string $id)
     {
-        $blog = blog::find($id);
+        $blog = Blog::find($id);
         return view('blog.show', ['blog' => $blog]);
     }
 
@@ -91,4 +94,6 @@ class blogController extends Controller
         $blog->delete();
         return redirect('/')->with('success', 'Blog deleted successfully.');
     }
+
+    
 }

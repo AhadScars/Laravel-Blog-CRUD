@@ -2,63 +2,90 @@
 
 @if ($message = Session::get('success'))
     <div class="container mt-3">
-        <div class="alert alert-success">
+        <p class="text-success text-center small">
             {{ $message }}
-        </div>
+        </p>
     </div>
 @endif
 
 @if ($errors->any())
     <div class="container mt-3">
-        <div class="alert alert-danger">
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+        <ul class="text-danger small mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
 @endif
 
-<div class="container mt-3">
-    <h2 class="text-center">Edit Blog</h2>
-</div>
+<div class="container mt-5" style="max-width: 600px;">
+    <h4 class="mb-4 text-center">Edit Blog</h4>
 
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-sm-8">
-            <div class="card p-4">
-                <form method="POST" action="{{ url('blog/update/' . $blog->id) }}" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
+    <form
+        method="POST"
+        action="{{ url('blog/update/' . $blog->id) }}"
+        enctype="multipart/form-data"
+    >
+        @csrf
+        @method('PUT')
 
-                    <div class="mb-3">
-                        <label class="form-label">Title</label>
-                        <input type="text" name="title" class="form-control" value="{{ old('title', $blog->title) }}">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea name="description" rows="5" class="form-control">{{ old('description', $blog->description) }}</textarea>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Current Image</label>
-                        @if($blog->image)
-                            <div class="mb-2">
-                                <img src="{{ asset('images/' . $blog->image) }}" alt="Current" class="img-fluid" width="120">
-                            </div>
-                        @endif
-                        <label class="form-label text-muted">Replace image (optional)</label>
-                        <input type="file" name="image" class="form-control" accept="image/*">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Update Blog</button>
-                    <a href="{{ url('/blog/' . $blog->id) }}" class="btn btn-secondary">Cancel</a>
-                </form>
-            </div>
+        <div class="mb-3">
+            <label class="form-label small text-muted">Title</label>
+            <input
+                type="text"
+                name="title"
+                class="form-control border-0 border-bottom rounded-0"
+                value="{{ old('title', $blog->title) }}"
+                required
+            >
         </div>
-    </div>
+
+        <div class="mb-4">
+            <label class="form-label small text-muted">Description</label>
+            <textarea
+                name="description"
+                rows="5"
+                class="form-control border-0 border-bottom rounded-0"
+                required
+            >{{ old('description', $blog->description) }}</textarea>
+        </div>
+
+        @if ($blog->image)
+            <div class="mb-4">
+                <label class="form-label small text-muted">Current image</label>
+                <div>
+                    <img
+                        src="{{ asset('images/' . $blog->image) }}"
+                        width="120"
+                        class="img-fluid"
+                    >
+                </div>
+            </div>
+        @endif
+
+        <div class="mb-4">
+            <label class="form-label small text-muted">Replace image (optional)</label>
+            <input
+                type="file"
+                name="image"
+                class="form-control border-0 rounded-0"
+                accept="image/*"
+            >
+        </div>
+
+        <div class="d-flex gap-3">
+            <button type="submit" class="btn btn-dark">
+                Update
+            </button>
+
+            <a
+                href="{{ url('/blog/' . $blog->id) }}"
+                class="btn btn-outline-secondary"
+            >
+                Cancel
+            </a>
+        </div>
+    </form>
 </div>
 
 </body>

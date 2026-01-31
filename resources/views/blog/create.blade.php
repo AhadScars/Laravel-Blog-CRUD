@@ -2,44 +2,50 @@
 
 @if ($message = Session::get('success'))
     <div class="container mt-3">
-        <div class="alert alert-success">
+        <p class="text-success text-center small">
             {{ $message }}
-        </div>
+        </p>
     </div>
 @endif
 
+<div class="container mt-5" style="max-width: 600px;">
+    <h4 class="mb-4 text-center">Add Blog</h4>
 
-<div class="container mt-3">
-    <h2 class="text-center">Add Blog</h2>
-</div>
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-sm-8">
-            <div class="card p-4">
+    <form method="POST" action="/blog/store" enctype="multipart/form-data">
+        @csrf
 
-                <form method="POST" action="/blog/store" enctype="multipart/form-data">
-                    @csrf
-
-                    <div class="mb-3">
-                        <label class="form-label">Title</label>
-                        <input type="text" name="title" class="form-control" value="{{ old('title') }}">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea name="description" rows="5" class="form-control">{{ old('description') }}</textarea>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Image</label>
-                        <input type="file" name="image" class="form-control">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
-
-                </form>
-            </div>
+        <div class="mb-3">
+            <label class="form-label small text-muted">Title</label>
+            <input
+                type="text"
+                name="title"
+                class="form-control border-0 border-bottom rounded-0"
+                value="{{ old('title') }}"
+                required
+            >
         </div>
-    </div>
-</div>
 
+        <div class="mb-4">
+            <label class="form-label small text-muted">Description</label>
+            <textarea
+                name="description"
+                rows="5"
+                class="form-control border-0 border-bottom rounded-0"
+                required
+            >{{ old('description') }}</textarea>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label small text-muted">Image</label>
+            <input
+                type="file"
+                name="image"
+                class="form-control border-0 rounded-0"
+            >
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100">
+            Publish
+        </button>
+    </form>
+</div>
