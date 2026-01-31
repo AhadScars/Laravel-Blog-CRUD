@@ -7,26 +7,28 @@ use App\Http\Controllers\userController;
 
 Route::get('/', [blogController::class, 'index']);
 
-Route::get('blog/create', [blogController::class, 'create']);
+Route::get('blog/create', [blogController::class, 'create'])->middleware('auth');
 
-Route::post('blog/store', [blogController::class,'store']);
+Route::post('blog/store', [blogController::class,'store'])->middleware('auth');
 
 Route::get('blog/{id}', [blogController::class, 'show']);
 
-Route::get('blog/edit/{id}', [blogController::class, 'edit']);
+Route::get('blog/edit/{id}', [blogController::class, 'edit'])->middleware('auth');
 
-Route::put('blog/update/{id}', [blogController::class, 'update']);
+Route::put('blog/update/{id}', [blogController::class, 'update'])->middleware('auth');
 
-Route::delete('blog/delete/{id}', [blogController::class, 'destroy']);
+Route::delete('blog/delete/{id}', [blogController::class, 'destroy'])->middleware('auth');
 
-Route::get('profile', [userController::class,'profile']);
+Route::get('profile', [userController::class,'profile'])->middleware('auth');
 
-Route::get("/auth/login", [userController::class, 'login']);
+Route::get("/auth/login", [userController::class, 'login'])->name('login');
 
 Route::get("/auth/register",[userController::class,"register"]);
 
 Route::post("/auth/register",[userController::class,"store"]);
 
-Route::post("/logout",[userController::class,"logout"]);
+Route::post("/logout",[userController::class,"logout"])->middleware('auth');
 
-Route::post("/login",[userController::class,"authenticate"]);
+Route::post("/auth/login",[userController::class,"authenticate"]);
+
+

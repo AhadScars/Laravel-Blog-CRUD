@@ -17,7 +17,7 @@
         <div class="col-sm-6">
             <div class="card p-4">
 
-                <form action="/login" method="POST">
+                <form action="/auth/login" method="POST">
                     @csrf
 
                     <div class="mb-3">
