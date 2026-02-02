@@ -1,66 +1,133 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## BlogApp
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A simple blog application built with **Laravel 10**, featuring **authentication**, **blog CRUD**, **image upload**, and **search + pagination**.
 
-## About Laravel
+### Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Auth**: register, login, logout (session-based)
+- **Blog posts**: create, read, update, delete
+- **Image uploads**: uploads saved to `public/images`
+- **Search**: filter by `title` / `description` using `?search=...`
+- **Pagination**: 5 posts per page
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Tech stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Backend**: Laravel 10 (PHP ^8.1)
+- **Frontend**: Blade templates + Vite
+- **Database**: MySQL (default in `.env.example`)
 
-## Learning Laravel
+## Local setup
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Requirements
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **PHP**: 8.1+
+- **Composer**
+- **Node.js** + **npm**
+- **MySQL**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Install
 
-## Laravel Sponsors
+1) Install PHP dependencies:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+composer install
+```
 
-### Premium Partners
+2) Create your environment file:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- **Windows (PowerShell)**:
 
-## Contributing
+```powershell
+Copy-Item .env.example .env
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **macOS/Linux**:
 
-## Code of Conduct
+```bash
+cp .env.example .env
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3) Generate an application key:
 
-## Security Vulnerabilities
+```bash
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4) Configure database settings in `.env`:
 
-## License
+- `DB_DATABASE=blogapp`
+- `DB_USERNAME=...`
+- `DB_PASSWORD=...`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+5) Run migrations:
+
+```bash
+php artisan migrate
+```
+
+6) Install frontend dependencies:
+
+```bash
+npm install
+```
+
+### Run (development)
+
+In one terminal:
+
+```bash
+php artisan serve
+```
+
+In another terminal:
+
+```bash
+npm run dev
+```
+
+Open the app at `http://127.0.0.1:8000`.
+
+### Build (production assets)
+
+```bash
+npm run build
+```
+
+## Routes (web)
+
+These are defined in `routes/web.php`:
+
+- **Home (list + search + pagination)**: `GET /`
+- **Show blog**: `GET /blog/{id}`
+- **Create blog (auth)**: `GET /blog/create`
+- **Store blog (auth)**: `POST /blog/store`
+- **Edit blog (auth)**: `GET /blog/edit/{id}`
+- **Update blog (auth)**: `PUT /blog/update/{id}`
+- **Delete blog (auth)**: `DELETE /blog/delete/{id}`
+- **Profile (auth)**: `GET /profile`
+- **Login page**: `GET /auth/login`
+- **Login submit**: `POST /auth/login`
+- **Register page**: `GET /auth/register`
+- **Register submit**: `POST /auth/register`
+- **Logout (auth)**: `POST /logout`
+
+## Uploads (`public/images`)
+
+Blog images are stored in `public/images` (see `app/Http/Controllers/blogController.php`).
+
+- Make sure the `public/images` directory exists and is writable.
+- In this repo, `public/images/` currently contains local images and may not be committed/present on other machines.
+
+## Tests
+
+```bash
+php artisan test
+```
+
+## Notes / TODO
+
+- **Security**: `app/Http/Controllers/userController.php` currently creates users via `User::create(...)`. Ensure passwords are **hashed** (e.g. `Hash::make`) before using this in production.
+
+## Author
+
+Abdul Ahad
