@@ -3,7 +3,7 @@
 <div class="container mt-5" style="max-width: 720px;">
 
     <div class="mb-4 text-muted small">
-        By {{ auth()->user()->name }} |
+        By - {{ $blog->user ? $blog->user->name : 'Unknown' }}
         {{ $blog->created_at->format('F j, Y') }}
     </div>
 
@@ -24,6 +24,8 @@
         </div>
     @endif
 
+
+    @if(auth()->check() && $blog->user_id === auth()->id())
     <div class="d-flex gap-3 mt-5">
         <a
             href="/blog/edit/{{ $blog->id }}"
@@ -45,5 +47,6 @@
             </button>
         </form>
     </div>
+    @endif
 
 </div>

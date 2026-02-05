@@ -38,11 +38,13 @@ class blogController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
-       $image = time().'.'.$request->image->extension();
-         $request->image->move(public_path('images'), $image);
+    
+        $image = time().'.'.$request->image->extension();
+        $request->image->move(public_path('images'), $image);
         $blog = new Blog();
         $blog->title = $request->title;
         $blog->description = $request->description;
+        $blog->user_id = auth()->id();
         $blog->image = $image;
         
         $blog->save();
@@ -74,6 +76,8 @@ class blogController extends Controller
         ]);
 
         $blog = blog::findOrFail($id);
+        $this->authorize('modify-blog', $blog);
+
         $blog->title = $request->title;
         $blog->description = $request->description;
 
@@ -91,6 +95,8 @@ class blogController extends Controller
     public function destroy(string $id)
     {
         $blog = blog::findOrFail($id);
+        $this->authorize('modify-blog', $blog);
+        
         $blog->delete();
         return redirect('/')->with('success', 'Blog deleted successfully.');
     }

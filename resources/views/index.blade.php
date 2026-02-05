@@ -17,6 +17,7 @@
                 <th class="text-muted small">Title</th>
                 <th class="text-muted small">Content</th>
                 <th class="text-muted small">Image</th>
+                <th class="text-muted small">Action</th>
             </tr>
         </thead>
 
@@ -37,6 +38,31 @@
 
             <td>
                 <img src="{{ asset('images/' . $blog->image) }}" width="70" class="img-fluid">
+            </td>
+            <td>
+            @if(auth()->check() && $blog->user_id === auth()->id())
+            <div class="d-flex gap-3 mt-2">
+        <a
+            href="/blog/edit/{{ $blog->id }}"
+            class="btn btn-outline-secondary btn-sm"
+        >
+            Edit
+        </a>
+
+        <form
+            action="/blog/delete/{{ $blog->id }}"
+            method="POST"
+            onsubmit="return confirm('Delete this blog?')"
+        >
+            @csrf
+            @method('DELETE')
+
+            <button type="submit" class="btn btn-link text-danger btn-sm p-0">
+                Delete
+            </button>
+        </form>
+    </div>
+            @endif
             </td>
         </tr>
     @empty

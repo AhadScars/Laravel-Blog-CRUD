@@ -29,6 +29,8 @@ Route::post("/auth/register",[userController::class,"store"]);
 
 Route::post("/logout",[userController::class,"logout"])->middleware('auth');
 
+Route::get('/auth/manage',[userController::class, "manage"])->middleware("auth");
+
 Route::post("/auth/login",[userController::class,"authenticate"]);
 
 

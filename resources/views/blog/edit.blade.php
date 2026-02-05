@@ -72,7 +72,6 @@
                 accept="image/*"
             >
         </div>
-
         <div class="d-flex gap-3">
             <button type="submit" class="btn btn-dark">
                 Update
@@ -85,6 +84,7 @@
                 Cancel
             </a>
         </div>
+       
     </form>
 </div>
 

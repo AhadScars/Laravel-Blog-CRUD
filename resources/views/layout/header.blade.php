@@ -119,6 +119,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/profile">Profile</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/manage">Manage Blogs</a>
+                </li>
+
                 @endauth
 
                 @guest

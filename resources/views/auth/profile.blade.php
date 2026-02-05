@@ -17,4 +17,18 @@
         {{ auth()->user()->email }}
     </div>
 
+    <div class="text-center text-muted">
+        {{ auth()->user()->description }}
+    </div>
+
+    <div class="text-center mt-3">
+    @if(auth()->user()->profile_image)
+    <img 
+        src="{{ asset('public/images/' . auth()->user()->image) }}" 
+        alt="Profile Image"
+        class="img-fluid rounded-circle"
+        width="150"
+    >
+    @endif
+</div>
 </div>
