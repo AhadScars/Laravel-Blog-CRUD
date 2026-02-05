@@ -118,16 +118,10 @@ Blog images are stored in `public/images` (see `app/Http/Controllers/blogControl
 - Make sure the `public/images` directory exists and is writable.
 - In this repo, `public/images/` currently contains local images and may not be committed/present on other machines.
 
-## Tests
+## Security Vulnerabilities
 
-```bash
-php artisan test
-```
-
-## Notes / TODO
-
-- **Security**: `app/Http/Controllers/userController.php` currently creates users via `User::create(...)`. Ensure passwords are **hashed** (e.g. `Hash::make`) before using this in production.
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
-This project is built on Laravel, which is licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
