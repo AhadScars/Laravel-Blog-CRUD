@@ -22,6 +22,8 @@
                 class="img-fluid rounded"
             >
         </div>
+
+        
     @endif
 
 
