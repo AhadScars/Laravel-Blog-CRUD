@@ -23,14 +23,17 @@
                     @forelse ($blogs as $blog)
                         <tr>
                         <td>
-                            <a href="/blog/{{ $blog->id }}/show" class="fw-semibold text-dark text-decoration-none">
+                            <a href="/blog/{{ $blog->id }}" class="fw-semibold text-dark text-decoration-none">
                                 {{ $blog->title }}
                             </a>
                         </td>
                         <td class="text-muted">
                             {{ Str::limit($blog->description, 40) }}
                         </td>
-                            <td>{{ $blog->image }}</td>
+                        <td>
+                            <img src="{{ asset('images/' . $blog->image) }}" width="70" class="img-fluid">
+                        </td>
+                        
                             <td>{{ $blog->updated_at->format('d-m-Y H:i:s') }}</td>
                         </tr>
                         @empty
