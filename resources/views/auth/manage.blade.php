@@ -31,7 +31,7 @@
                             {{ Str::limit($blog->description, 40) }}
                         </td>
                         <td>
-                            <img src="{{ asset('images/' . $blog->image) }}" width="70" class="img-fluid">
+                            <img src="{{ asset('images/' . $blog->image) }}" width="50" height="50" class="rounded-circle border">
                         </td>
                         
                             <td>{{ $blog->updated_at->format('d-m-Y H:i:s') }}</td>

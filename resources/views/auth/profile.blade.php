@@ -33,7 +33,7 @@
             </div>
 
             <div class="text-muted small mb-2">
-                <b>Total Number Of Blogs is :</b>{{ auth()->user()->count() }}
+                <b>Total Number Of Blogs is :</b>{{ auth()->user()->blogs()->count() }}
             </div>
 
         </div>

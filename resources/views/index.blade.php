@@ -40,9 +40,13 @@
             </td>
 
             <td>
-                <img src="{{ asset('images/' . $blog->image) }}" width="70" class="img-fluid">
+                <img src="{{ asset('images/' . $blog->image) }}"
+                 class="rounded-circle border" width="50" height="50" style="object-fit: cover;">
             </td>
             <td>
+
+
+
             @if(auth()->check() && $blog->user_id === auth()->id())
             <div class="d-flex gap-3 mt-2">
         <a
