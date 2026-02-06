@@ -44,11 +44,11 @@
     
     @if(auth()->check() && $blog->user_id === auth()->id())
         <div class="d-flex gap-3 mt-5">
-            <a href="{{ route('blog.edit', $blog->id) }}" class="btn btn-outline-secondary btn-sm">
+            <a href="/blog/edit/{{ $blog->id }}" class="btn btn-outline-secondary btn-sm">
                 Edit
             </a>
 
-            <form action="{{ route('blog.delete', $blog->id) }}" method="POST" onsubmit="return confirm('Delete this blog?')">
+           <form action="/blog/delete/{{ $blog->id }}" method="POST"onsubmit="return confirm('Delete this blog?')">
                 @csrf
                 @method('DELETE')
 
