@@ -11,10 +11,12 @@
 
     
     <div class="mb-4 text-muted small">
-        By 
-        <a href="/profile">
-            {{ $blog->user ? $blog->user->name : 'Unknown' }}
-        </a>
+        By
+        @if($blog->user)
+            <a href="{{ url('/user_profile/' . $blog->user->id) }}">{{ $blog->user->name }}</a>
+        @else
+            Unknown
+        @endif
         • {{ $blog->created_at->format('F j, Y') }}
     </div>
 

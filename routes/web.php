@@ -21,16 +21,16 @@ Route::delete('blog/delete/{id}', [blogController::class, 'destroy'])->middlewar
 
 Route::get('profile', [userController::class,'profile'])->middleware('auth');
 
-Route::get("/auth/login", [userController::class, 'login'])->name('login');
+Route::get("/auth/login", [userController::class, 'login'])->name('login')->middleware('guest');
 
-Route::get("/auth/register",[userController::class,"register"]);
+Route::get("/auth/register",[userController::class,'register'])->middleware('guest');
 
-Route::post("/auth/register",[userController::class,"store"]);
+Route::post("/auth/register",[userController::class,'store']);
 
-Route::post("/logout",[userController::class,"logout"])->middleware('auth');
+Route::post("/logout",[userController::class,'logout'])->middleware('auth');
 
-Route::get('/auth/manage',[userController::class, "manage"])->middleware("auth");
+Route::get('/auth/manage',[userController::class, 'manage'])->middleware('auth');
 
-Route::post("/auth/login",[userController::class,"authenticate"]);
+Route::post("/auth/login",[userController::class,'authenticate']);
 
-
+Route::get('/user_profile/{id}', [userController::class, 'user_profile']);

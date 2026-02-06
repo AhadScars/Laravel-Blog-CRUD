@@ -92,4 +92,14 @@ class userController extends Controller
         return view("auth.profile");
     }
 
+
+    public function user_profile($id)
+    {
+       $user = User::findOrFail($id);
+
+    
+    $blogs = $user->blogs()->latest()->paginate(6); 
+
+    return view('blog.user_profile', compact('user', 'blogs'));
+    }
 }
