@@ -50,6 +50,17 @@
             >{{ old('description', $blog->description) }}</textarea>
         </div>
 
+        <div class="mb-3">
+            <label class="form-label small text-muted">Tags</label>
+            <input
+                type="text"
+                name="tags"
+                class="form-control border-0 border-bottom rounded-0"
+                value="{{ old('tags') }}"
+                required
+            >
+        </div>
+
         @if ($blog->image)
             <div class="mb-4">
                 <label class="form-label small text-muted">Current image</label>

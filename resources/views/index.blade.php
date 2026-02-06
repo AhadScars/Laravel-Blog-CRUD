@@ -16,6 +16,7 @@
                 <th class="text-muted small">#</th>
                 <th class="text-muted small">Title</th>
                 <th class="text-muted small">Content</th>
+                <th class="text-muted small">Tags</th>
                 <th class="text-muted small">Image</th>
                 <th class="text-muted small">Action</th>
             </tr>
@@ -34,6 +35,10 @@
 
             <td class="text-muted">
                 {{ Str::limit($blog->description, 80) }}
+            </td>
+
+             <td class="text-muted">
+                {{ Str::limit($blog->tags, 80) }}
             </td>
 
             <td>

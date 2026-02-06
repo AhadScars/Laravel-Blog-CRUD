@@ -15,7 +15,8 @@ class blogController extends Controller
 
     $blogs = Blog::when($search, function ($query, $search) {
             $query->where('title', 'like', "%$search%")
-                  ->orWhere('description', 'like', "%$search%");
+                  ->orWhere('description', 'like', "%$search%")
+                  ->orWhere('tags', 'like', "%$search%");
         })
         ->latest()
         ->paginate(5); 
@@ -35,6 +36,7 @@ class blogController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required',
+            'tags' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
@@ -44,6 +46,7 @@ class blogController extends Controller
         $blog = new Blog();
         $blog->title = $request->title;
         $blog->description = $request->description;
+        $blog->tags = $request->tags;
         $blog->user_id = auth()->id();
         $blog->image = $image;
         
