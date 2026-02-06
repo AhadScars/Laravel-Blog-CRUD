@@ -25,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('modify-blog', function (blog $user, User $blogs) {
+        Gate::define('modify-blog', function (User $user, blog $blogs) {
             return $blogs->user_id === $user->id;
         });
     }

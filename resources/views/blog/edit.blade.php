@@ -56,7 +56,7 @@
                 type="text"
                 name="tags"
                 class="form-control border-0 border-bottom rounded-0"
-                value="{{ old('tags') }}"
+                value="{{ old('tags',$blog->tags) }}"
                 required
             >
         </div>

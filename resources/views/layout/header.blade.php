@@ -144,9 +144,15 @@
                         </button>
                     </form>
                 </li>
-                @endauth
+                
 
             </ul>
+            <a href="/blog/create" class="btn btn-primary btn-sm me-4">
+                + Write Blog
+            </a>
+                @endauth
+            
+        </div>
 
             <form class="d-flex" method="GET" action="{{ url('/') }}">
                 <input

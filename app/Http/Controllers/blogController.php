@@ -75,13 +75,16 @@ class blogController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
+            'tags' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+
         ]);
 
         $blog = blog::findOrFail($id);
         $this->authorize('modify-blog', $blog);
 
         $blog->title = $request->title;
+        $blog->tags = $request->tags;
         $blog->description = $request->description;
 
         if ($request->hasFile('image')) {

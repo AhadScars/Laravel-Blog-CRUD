@@ -2,10 +2,11 @@
 
 <div class="container mt-5" style="max-width: 720px;">
 
-    <div class="mb-4 text-muted small">
-        By - {{ $blog->user ? $blog->user->name : 'Unknown' }}
+   <a href="/profile"><div class="mb-4 text-muted small">
+        By - {{ $blog->user ? $blog->user->name : 'Unknown' }}</a>
         {{ $blog->created_at->format('F j, Y') }}
     </div>
+    
 
     <h2 class="fw-semibold">
         {{ $blog->title }}

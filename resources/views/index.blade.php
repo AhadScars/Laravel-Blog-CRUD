@@ -5,9 +5,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h5 class="mb-0">Blogs</h5>
 
-        <a href="/blog/create" class="btn btn-primary btn-sm">
-            + Add Blog
-        </a>
+        
     </div>
 
     <table class="table align-middle">
@@ -34,7 +32,7 @@
             </td>
 
             <td class="text-muted">
-                {{ Str::limit($blog->description, 80) }}
+                {{ Str::limit($blog->description, limit: 50) }}
             </td>
 
              <td class="text-muted">
