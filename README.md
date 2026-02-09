@@ -1,6 +1,9 @@
 # BlogApp
 
+<<<<<<< HEAD
 > **Write posts. Share your voice. Built with Laravel.**
+=======
+>>>>>>> 3e176cf9402a39cd8a4f59023742fac002053886
 
 A clean, full-featured blog where users sign up, publish posts with images and tags, and let readers discover authors. Perfect for a portfolio piece or a starter for your own content site.
 
@@ -28,10 +31,14 @@ Planned or possible next steps:
 - **Categories** — Categories or topics in addition to tags for better discovery.
 - **Profile editing** — Update name, bio, and profile image from the profile or manage page.
 - **REST or API** — Optional API (e.g. Laravel Sanctum) for a future mobile or SPA client.
+<<<<<<< HEAD
 - **Dark mode** — Theme toggle (e.g. CSS variables + a small JS/localStorage toggle).
 - **SEO & meta** — Per-post meta title/description and optional Open Graph tags.
 - **Analytics** — Simple view counts or basic dashboard for authors.
 
+=======
+ 
+>>>>>>> 3e176cf9402a39cd8a4f59023742fac002053886
 ---
 
 ## Stack
@@ -175,6 +182,7 @@ All images go to **`public/images/`**.
 - **users** — `id`, `name`, `email`, `password`, `description`, `profile_image`, timestamps.
 - **blogs** — `id`, `user_id`, `title`, `description`, `image`, `tags`, timestamps.  
 Relations: `User` hasMany `Blog`; `Blog` belongsTo `User`.
+<<<<<<< HEAD
 
 ---
 
@@ -195,3 +203,13 @@ Ideas and pull requests are welcome. Open an issue to discuss bigger changes or 
 **License:** [MIT](https://opensource.org/licenses/MIT).
 
 Security issues in Laravel can be reported to [Taylor Otwell](mailto:taylor@laravel.com).
+=======
+a
+---
+
+## Deployment
+
+For production: set `APP_ENV=production`, `APP_DEBUG=false`, and a strong `APP_KEY`. Point your web server (e.g. Nginx/Apache) at the `public` directory. Run `php artisan migrate --force` and `npm run build`; consider queue/cache drivers and log rotation. Optional: use Laravel Forge, Envoyer, or a platform like Laravel Vapor.
+
+---
+>>>>>>> 3e176cf9402a39cd8a4f59023742fac002053886
