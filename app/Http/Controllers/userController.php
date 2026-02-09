@@ -102,4 +102,37 @@ class userController extends Controller
 
     return view('blog.user_profile', compact('user', 'blogs'));
     }
+
+
+    public function edit_profile()
+    {
+        $user = auth()->user();
+        return view('auth.edit_profile', compact('user'));
+    }
+
+    public function update_profile(Request $request)
+    {
+        $user = auth()->user();
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'description' => 'required|string',
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        $user->description = $validated['description'];
+
+        if ($request->hasFile('profile_image')) {
+            $imageName = time() . '.' . $request->profile_image->extension();
+            $request->profile_image->move(public_path('images'), $imageName);
+            $user->profile_image = $imageName;
+        }
+
+        $user->save();
+
+        return redirect('/profile')->with('success', 'Profile updated successfully.');
+    }
 }

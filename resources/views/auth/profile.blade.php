@@ -1,7 +1,10 @@
 @include('layout.header')
 
+
 <div class="container mt-5 d-flex justify-content-center">
+
     <div class="card shadow-sm" style="max-width: 420px; width: 100%;">
+
         <div class="card-body text-center">
 
             <h4 class="mb-4 fw-semibold">Profile</h4>
@@ -14,7 +17,6 @@
 
                 @endif
             </div>
-
 
             <div class="fw-semibold fs-5">
                 {{ auth()->user()->name }}
@@ -32,9 +34,15 @@
                 </p>
             </div>
 
-            <div class="text-muted small mb-2">
-                <b>Total Number Of Blogs is :</b>{{ auth()->user()->blogs()->count() }}
+            <div class="text-muted  mb-2">
+                <b>Total Number Of Blogs is : </b>{{ auth()->user()->blogs()->count() }}
             </div>
+
+
+            <a href="{{ url('/auth/edit_profile') }}" class="btn btn-outline-secondary mt-2">
+                Edit Profile
+            </a>
+            
 
         </div>
     </div>

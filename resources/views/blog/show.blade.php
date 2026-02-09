@@ -45,7 +45,7 @@
 
     
     @if(auth()->check() && $blog->user_id === auth()->id())
-        <div class="d-flex gap-3 mt-5">
+        <div class="d-flex gap-3 mt-5 mb-5">
             <a href="/blog/edit/{{ $blog->id }}" class="btn btn-outline-secondary btn-sm">
                 Edit
             </a>
@@ -54,7 +54,7 @@
                 @csrf
                 @method('DELETE')
 
-                <button type="submit" class="btn btn-link text-danger btn-sm p-0">
+                <button type="submit" class="btn btn-outline-danger btn-sm">
                     Delete
                 </button>
             </form>
