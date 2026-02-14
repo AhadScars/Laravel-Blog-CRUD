@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\blog;
 use \App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -24,6 +23,24 @@ class userController extends Controller
         return view("auth.register");
     }
 
+    public function logout(Request $request)
+    {
+        auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerate();
+        return redirect('/auth/login');
+    }
+public function manage()
+    {
+        $blogs = auth()->user()->blogs()->latest()->get();
+        return view('auth.manage', compact('blogs'));
+    }
+public function profile()
+    {
+        
+        return view("auth.profile");
+    }
+
 
     public function store(Request $request)
     {
@@ -35,11 +52,11 @@ class userController extends Controller
             'description' => 'required|string',
         ]);
 
-        // Handle image upload
+       
         $imageName = time() . '.' . $request->profile_image->extension();
         $request->profile_image->move(public_path('images'), $imageName);
 
-        // Create user
+        
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
@@ -53,14 +70,6 @@ class userController extends Controller
         return redirect('/')->with('success', 'Registration successful! You are now logged in.');
     }
 
-
-    public function logout(Request $request)
-    {
-        auth()->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerate();
-        return redirect('/auth/login');
-    }
 
     public function authenticate(Request $request)
     {
@@ -79,18 +88,6 @@ class userController extends Controller
         ])->onlyInput('email');
     }
 
-
-    public function manage()
-    {
-        $blogs = auth()->user()->blogs()->latest()->get();
-        return view('auth.manage', compact('blogs'));
-    }
-
-    public function profile()
-    {
-        
-        return view("auth.profile");
-    }
 
 
     public function user_profile($id)
