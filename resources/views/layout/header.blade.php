@@ -137,7 +137,7 @@
 
                 @auth
                 <li class="nav-item">
-                    <form method="POST" action="/logout">
+                    <form method="POST" action="/auth/logout">
                         @csrf
                         <button type="submit" class="btn btn-link nav-link p-0">
                             Logout

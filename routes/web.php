@@ -5,10 +5,7 @@ use App\Http\Controllers\blogController;
 use App\Http\Controllers\userController;
 
 Route::controller(blogController::class)->group(function () {
-
     Route::get('/', 'index');
-
-    Route::get('blog/{id}', 'show');
 
     Route::middleware('auth')->group(function () {
         Route::get('blog/create', 'create');
@@ -17,6 +14,8 @@ Route::controller(blogController::class)->group(function () {
         Route::put('blog/update/{id}', 'update');
         Route::delete('blog/delete/{id}', 'destroy');
     });
+
+    Route::get('blog/{id}', 'show');
 });
 
 Route::prefix('auth')->controller(userController::class)->group(function () {

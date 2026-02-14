@@ -6,7 +6,16 @@
             {{ $message }}
         </p>
     </div>
+@elseif ($errors->any())
+    <div class="container mt-3">
+        <ul class="text-danger text-center">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
 @endif
+
 
 <div class="container mt-5" style="max-width: 420px;">
     <h4 class="text-center mb-4">Login</h4>
@@ -23,6 +32,7 @@
                 value="{{ old('email') }}"
                 required
             >
+            {{ $errors->first('email') }}
         </div>
 
         <div class="mb-4">
@@ -33,6 +43,7 @@
                 class="form-control border-0 border-bottom rounded-0"
                 required
             >
+            {{ $errors->first('password') }}
         </div>
 
         <button type="submit" class="btn btn-dark w-100 mb-3">
