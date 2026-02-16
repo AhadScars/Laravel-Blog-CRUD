@@ -56,7 +56,7 @@ class APIAuthController extends Controller
     public function logout(Request $request)
     {
         $user = auth()->user();
-     $user ->tokens()->delete();
+        $user ->tokens()->delete();
 
         return response()->json([
             'status' => "true",
@@ -65,7 +65,7 @@ class APIAuthController extends Controller
         ], 200);
     }
 
-    public function store(Request $request)
+    public function signup(Request $request)
 {
    
     $validator = Validator::make($request->all(), [
@@ -118,4 +118,11 @@ class APIAuthController extends Controller
     ], 201);
 }
 
+ public function getAllUsers()
+    {
+        return response()->json([
+            "status" => "success",
+            "data" => User::all()
+        ], 200);
+    }
 }
