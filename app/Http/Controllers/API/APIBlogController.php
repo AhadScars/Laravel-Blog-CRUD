@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\blog;
+use App\Models\blog as Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,7 +13,7 @@ class APIBlogController extends Controller
     {
         return response()->json([
             "status" => "success",
-            "data" => blog::all()
+            "data" => Blog::all()
         ], 200);
     }
 
@@ -23,7 +23,7 @@ class APIBlogController extends Controller
     $validator = Validator::make($request->all(), [
         "title" => "required|string",
         "description" => "required|string",
-        // "tags" => "required|string",
+        "tags" => "required|string",
         "image" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
     ]);
 
@@ -50,7 +50,7 @@ class APIBlogController extends Controller
     $blog = Blog::create([
         "title" => $request->title,
         "description" => $request->description,
-        // "tags" => $request->tags,
+        "tags" => $request->tags,
         "image" => $imageName,
         "user_id" => auth()->id(), 
     ]);
@@ -61,21 +61,60 @@ class APIBlogController extends Controller
         "data" => $blog
     ], 201);
 }
+
+
+
+
     public function showBlogbyId(string $id)
     {
         return response()->json([
             "status" => "success",
-            "data" => blog::find($id)
+            "data" => Blog::find($id)
         ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        
+
+
+
+   public function updateBlog(string $id, Request $request)
+{
+    // NOTE: "sometimes" allows partial updates (common for APIs).
+    $request->validate([
+        'title' => 'sometimes|required|string',
+        'description' => 'sometimes|required|string',
+        'tags' => 'sometimes|required|string',
+        'image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    $blog = Blog::findOrFail($id);
+
+    $this->authorize('modify-blog', $blog);
+
+    // Fill only provided fields
+    $blog->fill($request->only(['title', 'description', 'tags']));
+
+    if ($request->hasFile('image') && $request->file('image')->isValid()) {
+
+        if ($blog->image && file_exists(public_path('images/' . $blog->image))) {
+            unlink(public_path('images/' . $blog->image));
+        }
+
+        $image = $request->file('image');
+        $imageName = time() . '.' . $image->extension();
+        $image->move(public_path('images'), $imageName);
+
+        $blog->image = $imageName;
     }
+
+    $blog->save();
+
+    return response()->json([
+        "status" => true,
+        "message" => "Blog updated successfully",
+        "data" => $blog
+    ], 200);
+}
+
 
     /**
      * Update the specified resource in storage.
@@ -89,25 +128,23 @@ class APIBlogController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {  
+    {
+        $blog = Blog::find($id);
 
-        if (auth()->id() != blog::find($id)->user_id) {
-            return response()->json([
-                "status" => "error",
-                "message" => "Unauthorized"
-            ], 401);
-        }
-
-        if (!blog::find($id)) {
+        if (!$blog) {
             return response()->json([
                 "status" => "error",
                 "message" => "Blog not found"
             ], 404);
         }
+
+        $this->authorize('modify-blog', $blog);
+
+        $blog->delete();
+
         return response()->json([
             "status" => "success",
             "message" => "Blog deleted successfully",
-            "data" => blog::destroy($id)
         ], 200);
     }
 }

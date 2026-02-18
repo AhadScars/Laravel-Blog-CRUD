@@ -22,12 +22,11 @@ class APIAuthController extends Controller
         if ($validated->fails()) {
             return response()->json(
                 [
-                    'status' => "false"
-                    ,
+                    'status' => "false",
                     "message" => "Authentication Failed",
                     "errors" => $validated->errors()->all()
                 ],
-                404
+                422
             );
         }
 
